@@ -1,7 +1,7 @@
 /**
  * Created by linchunhui on 2018/1/20.
  */
-angular.module('nlUtil', [])
+angular.module('nlUtils', [])
     .factory('StringUtils', function () {
         return {
             isEmpty: function(obj) {
