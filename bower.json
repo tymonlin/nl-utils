@@ -1,0 +1,20 @@
+{
+  "name": "nl-utils",
+  "authors": [
+    "Tymon <tymonlin@163.com>"
+  ],
+  "description": "NewlandPayment for Utils",
+  "main": "",
+  "keywords": [
+    "utils"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tymonlin/nl-utils.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
