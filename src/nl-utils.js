@@ -1,7 +1,7 @@
 /**
  * Created by linchunhui on 2018/1/20.
  */
-angular.module('com.newland.util', [])
+angular.module('nlUtil', [])
     .factory('StringUtils', function () {
         return {
             isEmpty: function(obj) {
