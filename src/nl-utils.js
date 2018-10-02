@@ -58,6 +58,11 @@ angular.module('nlUtils', [])
     })
     .factory('DateUtils', function (StringUtils) {
         return {
+            /**
+             * Date 转 String , 格式： yyyy-MM-dd
+             * @param date
+             * @returns {*}
+             */
             formatDate: function (date) {
                 if (date == undefined) return undefined;
                 if (typeof date != "object") {
@@ -67,7 +72,7 @@ angular.module('nlUtils', [])
                 return (date.getYear() + 1900) + "-" + StringUtils.lpad((date.getMonth() + 1), 2, "0") + "-" + StringUtils.lpad(date.getDate(), 2, "0");
             },
             /**
-             * 获取日期格式
+             * 获取时间格式, Date 转 String, 格式： HH:mm:ss
              * @param date
              * @returns {*}
              */
@@ -79,14 +84,27 @@ angular.module('nlUtils', [])
                 }
                 return StringUtils.lpad(date.getHours(), 2, "0") + ":" + StringUtils.lpad(date.getMinutes(), 2, "0") + ":" + StringUtils.lpad(date.getSeconds(), 2, "0");
             },
+            /**
+             * 时间的long型
+             * @param date
+             * @returns {number}
+             */
             timestamp: function (date) {
                 var d = date ? date : new Date();
                 return Date.parse(d);
             },
+            /**
+             * 返回当前日期: yyyy-MM-dd
+             * @returns {*}
+             */
             today: function () {
                 var d = new Date();
                 return this.formatDate(d);
             },
+            /**
+             * 返回当前时间：HH:mm:ss
+             * @returns {*}
+             */
             getNowTime: function () {
                 return this.formatDate(new Date());
             },
@@ -98,6 +116,11 @@ angular.module('nlUtils', [])
                 s += ("00" + d.getUTCDate()).slice(-2);
                 return s;
             },
+            /**
+             * 当前日期的时间差
+             * @param days
+             * @returns {string | *}
+             */
             getDiffDays: function (days) {
                 var s, d, t, t2;
                 t = new Date().getTime();
