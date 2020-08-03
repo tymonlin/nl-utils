@@ -115,6 +115,7 @@
                 return s;
             },
             formatTDateString: function (dateString) {
+                if (!dateString) {return "";}
                 var time = new Date(Date.parse(dateString));
                 time.setTime(time.setHours(time.getHours() + 8));
                 var Y = time.getFullYear() + "-";
