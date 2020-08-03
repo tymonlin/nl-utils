@@ -1,7 +1,7 @@
 /**
  * Created by Tymon.Lin on 2018/1/20.
  */
-(function (angular) {
+;(function (angular) {
     "use strict";
     var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
     var utils = angular.module("nlUtils", []);
@@ -15,12 +15,12 @@
             },
             lpad: function (str, len, padStr) {
                 str += "";
-                while (str.length < len) str = padStr + str;
+                while (str.length < len) {str = padStr + str;}
                 return str;
             },
             rpad: function (str, len, padStr) {
                 str += "";
-                while (str.length < len) str += padStr;
+                while (str.length < len) {str += padStr;}
                 return str;
             },
             isNumber: function(text) {
@@ -54,7 +54,7 @@
              * @returns {*}
              */
             formatDate: function (date) {
-                if (date == undefined) return undefined;
+                if (date == undefined) {return undefined;}
                 if (typeof date != "object") {
                     console.log("无法识别的类型:" + (typeof date));
                     return date;
@@ -67,7 +67,7 @@
              * @returns {*}
              */
             formatTime: function (date) {
-                if (date == undefined) return undefined;
+                if (date == undefined) {return undefined;}
                 if (typeof date != "object") {
                     console.log("无法识别的类型:" + (typeof date));
                     return date;
@@ -139,29 +139,27 @@
                     fractionSize = formats.PATTERNS[1].maxFrac;
                 }
 
-                return (amount == null)
-                    ? amount
-                    : this.formatNumber(amount, formats.PATTERNS[1], formats.GROUP_SEP, formats.DECIMAL_SEP, fractionSize).
-                    replace(/\u00A4/g, " " + currencySymbol);
+                return (amount == null) ? amount :
+                    this.formatNumber(amount, formats.PATTERNS[1], formats.GROUP_SEP, formats.DECIMAL_SEP, fractionSize).replace(/\u00A4/g, " " + currencySymbol);
             },
 
 
             "formatNumber": function (number, pattern, groupSep, decimalSep, fractionSize) {
                 var DECIMAL_SEP = ".";
-                if (angular.isObject(number)) return "";
+                if (angular.isObject(number)) {return "";}
 
                 var isNegative = number < 0;
                 number = Math.abs(number);
 
                 var isInfinity = number === Infinity;
-                if (!isInfinity && !isFinite(number)) return "";
+                if (!isInfinity && !isFinite(number)) {return "";}
 
                 var numStr = number + "",
                     formatedText = "",
                     hasExponent = false,
                     parts = [];
 
-                if (isInfinity) formatedText = "\u221e";
+                if (isInfinity) {formatedText = "\u221e";}
 
                 if (!isInfinity && numStr.indexOf("e") !== -1) {
                     var match = numStr.match(/([\d\.]+)e(-?)(\d+)/);
@@ -212,7 +210,7 @@
                         fraction += "0";
                     }
 
-                    if (fractionSize && fractionSize !== "0") formatedText += decimalSep + fraction.substr(0, fractionSize);
+                    if (fractionSize && fractionSize !== "0") {formatedText += decimalSep + fraction.substr(0, fractionSize);}
                 } else {
                     if (fractionSize > 0 && number < 1) {
                         formatedText = number.toFixed(fractionSize);
@@ -232,4 +230,4 @@
             }
         };
     });
-})(angular)
+})(angular);
