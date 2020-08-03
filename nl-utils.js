@@ -4,22 +4,22 @@
 (function (angular) {
     "use strict";
     var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-    var utils = angular.module('nlUtils', []);
-    utils.factory('StringUtils', function () {
+    var utils = angular.module("nlUtils", []);
+    utils.factory("StringUtils", function () {
         return {
             isEmpty: function(obj) {
-                return (obj == undefined || obj == '' || obj == {} || obj.length < 1);
+                return (obj == undefined || obj == "" || obj == {} || obj.length < 1);
             },
             isNotEmpty: function(obj) {
                 return !this.isEmpty(obj);
             },
             lpad: function (str, len, padStr) {
-                str += '';
+                str += "";
                 while (str.length < len) str = padStr + str;
                 return str;
             },
             rpad: function (str, len, padStr) {
-                str += '';
+                str += "";
                 while (str.length < len) str += padStr;
                 return str;
             },
@@ -46,7 +46,7 @@
             }
         };
     });
-    utils.factory('DateUtils', function (StringUtils) {
+    utils.factory("DateUtils", ["StringUtils", function (StringUtils) {
         return {
             /**
              * Date 转 String , 格式： yyyy-MM-dd
@@ -83,6 +83,7 @@
                 var d = date ? date : new Date();
                 return Date.parse(d);
             },
+
             /**
              * 返回当前日期: yyyy-MM-dd
              * @returns {*}
@@ -112,10 +113,21 @@
                 s += ("00" + (d.getUTCMonth() + 1)).slice(-2) + "-";
                 s += ("00" + d.getUTCDate()).slice(-2);
                 return s;
+            },
+            formatTDateString: function (dateString) {
+                var time = new Date(Date.parse(dateString));
+                time.setTime(time.setHours(time.getHours() + 8));
+                var Y = time.getFullYear() + "-";
+                var  M = StringUtils.lpad(time.getMonth() + 1, 2, "0") + "-";
+                var D = StringUtils.lpad(time.getDate(), 2, "0") + " ";
+                var h = StringUtils.lpad(time.getHours(), 2, "0") + ":";
+                var m = StringUtils.lpad(time.getMinutes(), 2, "0") + ":";
+                var s = StringUtils.lpad(time.getSeconds(), 2, "0");
+                return Y + M + D + h + m + s;
             }
         };
-    });
-    utils.factory('MoneyUtils', function ($locale) {
+    }]);
+    utils.factory("MoneyUtils", function ($locale) {
         return {
             "formatMoney": function(amount, currencySymbol, fractionSize) {
                 var formats = $locale.NUMBER_FORMATS;
@@ -135,25 +147,25 @@
 
 
             "formatNumber": function (number, pattern, groupSep, decimalSep, fractionSize) {
-                var DECIMAL_SEP = '.';
-                if (angular.isObject(number)) return '';
+                var DECIMAL_SEP = ".";
+                if (angular.isObject(number)) return "";
 
                 var isNegative = number < 0;
                 number = Math.abs(number);
 
                 var isInfinity = number === Infinity;
-                if (!isInfinity && !isFinite(number)) return '';
+                if (!isInfinity && !isFinite(number)) return "";
 
-                var numStr = number + '',
-                    formatedText = '',
+                var numStr = number + "",
+                    formatedText = "",
                     hasExponent = false,
                     parts = [];
 
-                if (isInfinity) formatedText = '\u221e';
+                if (isInfinity) formatedText = "\u221e";
 
-                if (!isInfinity && numStr.indexOf('e') !== -1) {
+                if (!isInfinity && numStr.indexOf("e") !== -1) {
                     var match = numStr.match(/([\d\.]+)e(-?)(\d+)/);
-                    if (match && match[2] == '-' && match[3] > fractionSize + 1) {
+                    if (match && match[2] == "-" && match[3] > fractionSize + 1) {
                         number = 0;
                     } else {
                         formatedText = numStr;
@@ -162,17 +174,17 @@
                 }
 
                 if (!isInfinity && !hasExponent) {
-                    var fractionLen = (numStr.split(DECIMAL_SEP)[1] || '').length;
+                    var fractionLen = (numStr.split(DECIMAL_SEP)[1] || "").length;
                     // determine fractionSize if it is not specified
                     if (angular.isUndefined(fractionSize)) {
                         fractionSize = Math.min(Math.max(pattern.minFrac, fractionLen), pattern.maxFrac);
                     }
 
-                    number = +(Math.round(+(number.toString() + 'e' + fractionSize)).toString() + 'e' + -fractionSize);
+                    number = +(Math.round(+(number.toString() + "e" + fractionSize)).toString() + "e" + -fractionSize);
 
-                    var fraction = ('' + number).split(DECIMAL_SEP);
+                    var fraction = ("" + number).split(DECIMAL_SEP);
                     var whole = fraction[0];
-                    fraction = fraction[1] || '';
+                    fraction = fraction[1] || "";
 
                     var i, pos = 0,
                         lgroup = pattern.lgSize,
@@ -197,7 +209,7 @@
 
                     // format fraction part.
                     while (fraction.length < fractionSize) {
-                        fraction += '0';
+                        fraction += "0";
                     }
 
                     if (fractionSize && fractionSize !== "0") formatedText += decimalSep + fraction.substr(0, fractionSize);
@@ -216,7 +228,7 @@
                 parts.push(isNegative ? pattern.negPre : pattern.posPre,
                     formatedText,
                     isNegative ? pattern.negSuf : pattern.posSuf);
-                return parts.join('');
+                return parts.join("");
             }
         };
     });
