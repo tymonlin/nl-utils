@@ -116,7 +116,7 @@
             },
             formatTDateString: function (dateString) {
                 if (!dateString) {return "";}
-                var time = new Date(Date.parse(dateString));
+                var time = new Date(Date.parse(dateString.replace(/-/g, "/").replace("T", " ").replace(".000+0000", "")));
                 var Y = time.getFullYear() + "-";
                 var  M = StringUtils.lpad(time.getMonth() + 1, 2, "0") + "-";
                 var D = StringUtils.lpad(time.getDate(), 2, "0") + " ";
