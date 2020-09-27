@@ -130,6 +130,7 @@
     utils.factory("MoneyUtils", function ($locale) {
         return {
             "formatMoney": function(amount, currencySymbol, fractionSize) {
+                amount = amount ? amount : 0;
                 var formats = $locale.NUMBER_FORMATS;
                 if (currencySymbol == undefined) {
                     currencySymbol = formats.CURRENCY_SYM;
